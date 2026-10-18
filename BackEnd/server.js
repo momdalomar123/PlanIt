@@ -8,10 +8,16 @@ const User = require("./schemas/user.js");
 const session = require("express-session");
 const authRoutes = require("./routes/authRoutes.js");
 const groupRoutes = require("./routes/groupRoutes.js");
-const todoRoutes = require('./routes/todoRoutes.js')
+const todoRoutes = require("./routes/todoRoutes.js");
 const app = express();
+const MONGO_URL =
+  process.env.USE_LOCAL_MONGO === "false"
+    ? process.env.MONGO_URL
+    : "mongodb://localhost:27017/Todo";
+
 app.use(express.json());
-mongoose.connect("mongodb://localhost:27017/Todo").then(() => {
+
+mongoose.connect(MONGO_URL).then(() => {
   const isNgrok = process.env.USE_NGROK === "true";
   const allowOrigin = isNgrok
     ? process.env.FRONTEND_NGROK_URL
@@ -42,7 +48,7 @@ mongoose.connect("mongodb://localhost:27017/Todo").then(() => {
   );
   app.use("/api/auth", authRoutes);
   app.use("/api/group", groupRoutes);
-  app.use('/api/todo',todoRoutes);
+  app.use("/api/todo", todoRoutes);
   console.log("connected");
   app.listen(3000);
 });
