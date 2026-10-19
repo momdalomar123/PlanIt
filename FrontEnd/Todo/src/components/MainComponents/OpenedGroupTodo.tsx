@@ -204,15 +204,17 @@ function AddTodo({
           layout
           className="flex justify-center mb-10"
         >
-          <div className="relative w-fit border p-5 rounded-lg dark:border-white/20 border-black/20  flex flex-col gap-8 items-center max-sm:p-5">
-            <div className="flex">
-              <div className="flex gap-3 items-center mr-5 ">
-                <label htmlFor="">Importancy</label>
+          <div className="relative w-fit border p-5 rounded-lg dark:border-white/20 border-black/20  flex flex-col gap-8 items-center max-sm:p-5 ">
+            <div className="flex max-[500px]:flex-col max-[500px]:items-center max-[500px]:gap-3">
+              <div className="flex gap-3 items-center mr-5  ">
+                <label htmlFor="" className="flex max-[500px]:justify-start">
+                  Importancy
+                </label>
                 <motion.select
                   whileHover={{ opacity: 0.7, transition: { duration: 0.4 } }}
                   name=""
                   id=""
-                  className="p-2 border border-black/20 dark:border-white/20 rounded-lg cursor-pointer "
+                  className="p-2 border border-black/20 dark:border-white/20 rounded-lg cursor-pointer max-[500px]:w-25"
                   onChange={(e) => {
                     const importancy = e?.currentTarget?.value;
 
@@ -229,7 +231,9 @@ function AddTodo({
                 </motion.select>
               </div>
               <div className="flex items-center gap-3 ">
-                <label htmlFor="">Due Time</label>
+                <label htmlFor="" className="flex max-[500px]:justify-start">
+                  Due Time
+                </label>
 
                 <motion.div
                   whileHover={{ opacity: 0.7, transition: { duration: 0.4 } }}
@@ -245,7 +249,7 @@ function AddTodo({
                     ref={inputDateRef}
                     type="date"
                     min={getToday()}
-                    className="relative outline-0 border p-2 rounded-lg dark:border-white/20 border-black/20  w-10 h-10"
+                    className="relative outline-0 border p-2 rounded-lg dark:border-white/20 border-black/20  w-10 h-10 max-[500px]:w-40"
                     onChange={(e) => {
                       if (e.currentTarget.value < getToday()) {
                         e.currentTarget.value = "";
@@ -266,7 +270,7 @@ function AddTodo({
             <input
               autoFocus
               type="text"
-              className="w-100 h-10 pl-2 p-1 bg-slate-200 dark:bg-white/20 rounded-lg  outline-0 text-2xl transition-all duration-500"
+              className="w-100 h-10 pl-2 p-1 bg-slate-200 dark:bg-white/20 rounded-lg  outline-0 text-2xl transition-all duration-500 max-[500px]:w-60"
               onChange={(e) => {
                 const title = e?.currentTarget?.value;
                 setTodo((prev) => ({ ...prev, todoTitle: title }));
@@ -421,9 +425,9 @@ function TodoDisplay({
         className="flex justify-center "
       >
         <div
-          className={` flex   border w-200 h-fit  p-5 items-center dark:border-white/20 border-black/20 rounded-lg relative ${cat.finished ? "opacity-60" : ""}`}
+          className={` flex   border w-200 h-fit  p-5 items-center dark:border-white/20 border-black/20 rounded-lg relative ${cat.finished ? "opacity-60" : ""} `}
         >
-          <div className="absolute flex gap-5 -top-3  pl-1 pr-1 ">
+          <div className="absolute flex gap-5 -top-3  pl-1 pr-1  ">
             {!editTodo ? (
               <div
                 className={`uppercase border p-1 rounded-lg dark:border-white/20 border-black/20 w-30 flex justify-center items-center   ${cat.importancy === "urgent" ? TodoImportancyStyles.urgent.background + " " + TodoImportancyStyles.urgent.textColor : cat.importancy === "important" ? TodoImportancyStyles.Important.background + " " + TodoImportancyStyles.Important.textColor : cat.importancy === "on the side" ? TodoImportancyStyles.OnTheSide.background + " " + TodoImportancyStyles.OnTheSide.textColor : cat.importancy === "can wait" ? TodoImportancyStyles.CanWait.background + " " + TodoImportancyStyles.CanWait.textColor : ""} max-[640px]:text-[13px] max-[640px]:w-24 `}
@@ -452,7 +456,7 @@ function TodoDisplay({
           </div>
           <div className="flex flex-col w-full relative h-full justify-center items-center">
             <div
-              className={`flex w-full justify-between items-center ${editTodo ? "mt-5" : ""}`}
+              className={`flex w-full justify-between items-center max-[460px]:mt-3 ${editTodo ? "mt-5" : ""}`}
             >
               <h1 className="text-2xl ml-4 flex-1 flex items-center ">
                 {editTodo ? (
@@ -737,12 +741,12 @@ export default function OpenedGroupTodo({
                     <div className="relative h-fit p-2">
                       <label
                         htmlFor=""
-                        className="text-[22px] max-[650px]:text-[20px] absolute max-[650px]:-top-1 -top-2 left-5 h-fit dark:bg-slate-900 bg-white dark:text-white/60 text-black/60 transition-all duration-500"
+                        className="text-[22px] max-[650px]:text-[20px] absolute max-[650px]:-top-1 -top-2 left-5 h-fit dark:bg-slate-900 bg-white dark:text-white/60 text-black/60 transition-all duration-500 "
                       >
                         Search Your Todos
                       </label>
                       <input
-                        className="outline-0 rounded-lg border p-2 pl-2 dark:border-white/20 border-black/20  "
+                        className="outline-0 rounded-lg border p-2 pl-2 dark:border-white/20 border-black/20 max-[500px]:w-65 "
                         onChange={(e) => {
                           const searchedTodo = e?.currentTarget.value.trim();
                           if (searchedTodo !== "") {

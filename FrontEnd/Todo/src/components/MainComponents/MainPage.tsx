@@ -249,7 +249,7 @@ export default function MainPage({
                   layout
                   className="border border-black/20 ml-10 mr-10 mt-10 pb-10 rounded-lg dark:border-white/20 relative"
                 >
-                  <h1 className="absolute dark:bg-slate-900 bg-white p-2 -top-7 left-2  text-2xl transition-all duration-500  ">
+                  <h1 className="absolute dark:bg-slate-900 bg-white p-2 -top-7 left-2  text-2xl transition-all duration-500  max-[410px]:text-[18px] ">
                     Jump to Each Category
                   </h1>
                   <div className="flex p-5"></div>
