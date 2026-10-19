@@ -49,6 +49,9 @@ mongoose.connect(MONGO_URL).then(() => {
   app.use("/api/auth", authRoutes);
   app.use("/api/group", groupRoutes);
   app.use("/api/todo", todoRoutes);
+
+  
+  app.get("/health", (req, res) => res.send("ok"));
   console.log("connected");
   app.listen(3000);
 });
