@@ -362,7 +362,7 @@ function TodoDisplay({
 
   const [todo, setTodo] = useState<Todo>({
     _id: cat._id,
-    title: cat._id,
+    title: cat.title,
     importancy: cat.importancy,
     dueTime: cat.dueTime,
     finished: cat.finished,
@@ -454,23 +454,27 @@ function TodoDisplay({
               )}
             </div>
           </div>
-          <div className="flex flex-col w-full relative h-full justify-center items-center">
+          <div className="flex flex-col w-full relative h-fit justify-center items-center">
             <div
-              className={`flex w-full justify-between items-center max-[460px]:mt-3 ${editTodo ? "mt-5" : ""}`}
+              className={`flex h-fit w-full  justify-between items-center max-[460px]:mt-3 ${editTodo ? "mt-5" : ""}`}
             >
-              <h1 className="text-2xl ml-4 flex-1 flex items-center ">
-                {editTodo ? (
-                  <InputEditTodo
-                    todoTitle={cat.title}
-                    todo={todo}
-                    setTodo={setTodo}
-                  />
-                ) : (
-                  cat?.title
-                )}
-              </h1>
+              {editTodo ? (
+                <InputEditTodo
+                  todoTitle={cat.title}
+                  todo={todo}
+                  setTodo={setTodo}
+                />
+              ) : (
+                <div className="min-w-0 flex-1">
+                  <h1
+                    className={`text-2xl ml-4 h-full  wrap-break-word ${editTodo ? "" : ""}`}
+                  >
+                    {cat?.title}
+                  </h1>
+                </div>
+              )}
 
-              <div className=" h-10 flex items-center">
+              <div className="  h-10 flex items-center">
                 {!editTodo ? (
                   <div className="flex gap-5 items-center">
                     {!cat.finished ? (
