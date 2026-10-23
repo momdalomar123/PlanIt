@@ -395,7 +395,7 @@ export default function MainPage({
                                           <motion.button
                                             whileHover={{ opacity: 0.6 }}
                                             transition={{ duration: 0.3 }}
-                                            className="border p-1 w-full rounded-lg bg-white/20 cursor-pointer"
+                                            className="border p-1 w-full rounded-lg bg-white/20 cursor-pointer dark:text-white text-black "
                                             onClick={() => {
                                               setEditDialogOpen(true);
                                             }}
@@ -407,7 +407,7 @@ export default function MainPage({
                                           <motion.button
                                             whileHover={{ opacity: 0.6 }}
                                             transition={{ duration: 0.3 }}
-                                            className="border p-1 rounded-lg bg-white/20 cursor-pointer "
+                                            className="border p-1 rounded-lg bg-white/20 cursor-pointer dark:text-white text-black"
                                             id={cat?._id}
                                             onClick={(e) => {
                                               console.log(e.currentTarget.id);

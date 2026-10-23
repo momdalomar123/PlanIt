@@ -92,7 +92,7 @@ function InputEditTodo({ todoTitle, todo, setTodo }: InputEditTodoProps) {
         ref={todoInputRef}
         type="text"
         className="outline-0 pl-2 p-1 rounded-lg 
-         dark:bg-white/20  w-70  max-[490px]:w-45 max-[590px]:w-55"
+         dark:bg-white/20  w-90 max-[660px]:w-80 max-[490px]:w-45 max-[590px]:w-60 max-[440px]:w-35"
         onChange={(e) => {
           const title = e?.currentTarget?.value;
           setTodo({ ...todo, title });
@@ -178,6 +178,7 @@ function DateEditTodo({ dueTime, todo, setTodo }: DateEditTodoProps) {
     </>
   );
 }
+
 function AddTodo({
   categoryTodoId,
   categoryTodo,
@@ -359,7 +360,7 @@ function TodoDisplay({
   setCategoryTodo,
 }: TodoDisplayProps) {
   const [editTodo, setEditTodo] = useState(false);
-
+  const [screenWidth, setScreenWidth] = useState(window.screen.availWidth);
   const [todo, setTodo] = useState<Todo>({
     _id: cat._id,
     title: cat.title,
@@ -367,7 +368,13 @@ function TodoDisplay({
     dueTime: cat.dueTime,
     finished: cat.finished,
   });
+
   const [editTitleEmpty, setEditTitleEmpty] = useState(false);
+  useEffect(() => {
+    window.addEventListener("resize", () => {
+      setScreenWidth(window.screen.availWidth);
+    });
+  }, []);
   async function deleteTodo() {
     await fetch("/api/todo/DeleteTodo", {
       method: "POST",
@@ -425,7 +432,7 @@ function TodoDisplay({
         className="flex justify-center "
       >
         <div
-          className={` flex   border w-200 h-fit  p-5 items-center dark:border-white/20 border-black/20 rounded-lg relative ${cat.finished ? "opacity-60" : ""} `}
+          className={` flex border w-200 h-fit  p-5 items-center dark:border-white/20 border-black/20 rounded-lg relative ${cat.finished ? "opacity-60" : ""} `}
         >
           <div className="absolute flex gap-5 -top-3  pl-1 pr-1  ">
             {!editTodo ? (
@@ -465,18 +472,18 @@ function TodoDisplay({
                   setTodo={setTodo}
                 />
               ) : (
-                <div className="min-w-0 flex-1">
+                <div className="">
                   <h1
-                    className={`text-2xl ml-4 h-full  wrap-break-word ${editTodo ? "" : ""}`}
+                    className={`text-2xl ml-4 h-full 
+                      w-90 wrap-break-word max-[399px]:w-30 max-[452px]:w-45 max-[530px]:w-60  max-[600px]:w-80 ${editTodo ? "" : ""}`}
                   >
                     {cat?.title}
                   </h1>
                 </div>
               )}
-
-              <div className="  h-10 flex items-center">
+              <div className="   h-10 flex items-center ">
                 {!editTodo ? (
-                  <div className="flex gap-5 items-center">
+                  <div className=" flex gap-5 items-center">
                     {!cat.finished ? (
                       <motion.button
                         style={{
@@ -557,6 +564,8 @@ function TodoDisplay({
                 )}
               </div>
             </div>
+            {screenWidth < 500 && <h1></h1>}
+
             <div className=" flex w-full justify-center  h-fit">
               {editTitleEmpty && <h1 className="mt-2">Title Can't be Empty</h1>}
               {!editTodo && (
@@ -607,9 +616,9 @@ export default function OpenedGroupTodo({
   const [categoryTodo, setCategoryTodo] = useState<Todo[]>([]);
   const [searchingTodo, setSearchingTodo] = useState(false);
   const [searchTodoEmpty, setSearchTodoEmpty] = useState(false);
-  const [categoryTodoId, setCategoryTodoId] = useState<string | undefined>("");
+   const { categoryIdParam } = useParams();
+  const [categoryTodoId, setCategoryTodoId] = useState<string | undefined>(categoryIdParam);
 
-  const { categoryIdParam } = useParams();
   console.log("param:", categoryIdParam);
   useEffect(() => {
     const getCategoryId = () => {

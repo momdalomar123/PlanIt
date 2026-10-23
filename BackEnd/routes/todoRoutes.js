@@ -4,14 +4,14 @@ const express = require("express");
 const mongoose = require("mongoose");
 const router = express.Router();
 
-async function getCategoryWithId(req, categoryId) {
+async function getCategoryWithId(req, categoryTodoId) {
   const result = await Group.aggregate([
     { $match: { username: req.session.username } },
     { $unwind: "$categories" },
     { $unwind: "$categories.category" },
     {
       $match: {
-        "categories.category._id": new mongoose.Types.ObjectId(categoryId),
+        "categories.category._id": new mongoose.Types.ObjectId(categoryTodoId),
       },
     },
     { $replaceRoot: { newRoot: "$categories.category" } },
@@ -24,7 +24,7 @@ async function getCategoryWithId(req, categoryId) {
 
 router.post("/GetTodo", async (req, res) => {
   const { categoryTodoId } = req.body;
-  console.log(categoryTodoId);
+  console.log("categoryId:", categoryTodoId);
   const category = await getCategoryWithId(req, categoryTodoId);
   return res.status(200).json(category);
 });
